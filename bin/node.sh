@@ -44,7 +44,6 @@ while getopts "gt" opt; do
   esac
 done
 
-npm init
 if $JAVASCRIPT;
 then
     cp ../templates/javascript/package.json $(echo "$(pwd)")
