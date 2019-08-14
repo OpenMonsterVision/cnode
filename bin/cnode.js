@@ -1,7 +1,5 @@
 const arg = require('arg');
 const fs = require('fs');
-var stdinBuffer = fs.readFileSync(0); 
-console.log(stdinBuffer.toString());
 function parseArgumentsIntoOptions(rawArgs) {
     const args = arg(
         {
@@ -41,9 +39,24 @@ function createDir(directory) {
     }
 }
 
+function checkDash(str) {
+
+    if (str.includes("-")) {
+console.log("Last Arguement is not a folder name")
+}else
+{
+    createDir(str)
+}
+}
+
 function cli(args) {
  let options = parseArgumentsIntoOptions(args);
+ checkDash(args[args.length - 1])
  console.log(options);
 }
+
+var stdinBuffer = fs.readFileSync(0); 
+console.log(stdinBuffer.toString());
+
 
 cli(process.argv)
