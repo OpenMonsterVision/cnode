@@ -42,21 +42,27 @@ function createDir(directory) {
 function checkDash(str) {
 
     if (str.includes("-")) {
-console.log("Last Arguement is not a folder name")
-}else
-{
-    createDir(str)
-}
+        console.log("Last Arguement is not a folder name")
+    }else
+    {
+        createDir(str)
+    }
 }
 
 function cli(args) {
- let options = parseArgumentsIntoOptions(args);
- checkDash(args[args.length - 1])
- console.log(options);
+    let options = parseArgumentsIntoOptions(args);
+    checkDash(args[args.length - 1])
+    console.log(options);
 }
-
-var stdinBuffer = fs.readFileSync(0); 
-console.log(stdinBuffer.toString());
-
+if (Boolean(process.stdin.isTTY)) {
+    //var stdinBuffer = fs.readFileSync(0); 
+    const chunk = process.stdin.read();
+    if (chunk !== null) {
+        process.stdout.write(`data: ${chunk}`);
+    }  
+    process.stdin.on('end', () => {
+        process.stdout.write('end');
+    });
+}
 
 cli(process.argv)
