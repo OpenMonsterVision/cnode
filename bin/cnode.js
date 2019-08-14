@@ -43,6 +43,7 @@ function checkDash(str) {
 
     if (str.includes("-")) {
         console.log("Last Arguement is not a folder name")
+        process.exit
     }else
     {
         createDir(str)
@@ -54,15 +55,19 @@ function cli(args) {
     checkDash(args[args.length - 1])
     console.log(options);
 }
-if (Boolean(process.stdin.isTTY)) {
-    //var stdinBuffer = fs.readFileSync(0); 
-    const chunk = process.stdin.read();
-    if (chunk !== null) {
-        process.stdout.write(`data: ${chunk}`);
-    }  
-    process.stdin.on('end', () => {
-        process.stdout.write('end');
-    });
-}
 
+if(process.argv.length > 2) {
 cli(process.argv)
+}else{
+
+var stdin = process.openStdin();
+    var data = "";
+
+stdin.on('data', function(chunk) {
+  data += chunk;
+});
+stdin.on('end', function() {
+console.log(data)  
+});
+
+}
