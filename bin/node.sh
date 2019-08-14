@@ -11,7 +11,7 @@
 #  REQUIREMENTS: ---
 #          BUGS: ---
 #         NOTES: ---
-#        AUTHOR: YOUR NAME (), 
+#        AUTHOR: BSDPunk
 #  ORGANIZATION: 
 #       CREATED: 08/13/2019 20:22
 #      REVISION:  ---
@@ -44,7 +44,7 @@ while getopts "gt" opt; do
   esac
 done
 
-
+npm init
 if $JAVASCRIPT;
 then
     cp ../templates/javascript/package.json $(echo "$(pwd)")
@@ -52,5 +52,4 @@ else
 
     cp ../templates/typescript/package.json $(echo "$(pwd)")
 fi
-
 npm install
