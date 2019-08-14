@@ -17,7 +17,7 @@
 #      REVISION:  ---
 #===============================================================================
 
-set -o nounset                              # Treat unset variables as an error
+#set -o nounset                              # Treat unset variables as an error
 last=$(echo "${@: -1}")
 
 if  echo "$last" | grep -q '-' ;
@@ -25,6 +25,7 @@ then
     echo "No Folder Specified"
     exit 1
 fi
+mkdir $(echo "$last")
 cd $(echo "$last")
 
 while getopts "gt" opt; do
@@ -37,7 +38,7 @@ while getopts "gt" opt; do
         ;;
   t )
       JAVASCRIPT=false
-
+      ;;
     * ) echo "Usage: cmd [-h] [-t]"
       ;;
   esac
@@ -46,8 +47,10 @@ done
 
 if $JAVASCRIPT;
 then
-    cp ../templates/javascript/package.json $(echo "$(pwd)/$last")
+    cp ../templates/javascript/package.json $(echo "$(pwd)")
 else
 
-    cp ../templates/typescript/package.json $(echo "$(pwd)/$last")
+    cp ../templates/typescript/package.json $(echo "$(pwd)")
 fi
+
+npm install
